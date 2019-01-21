@@ -4,12 +4,13 @@ export const strict = false
 
 export const state = () => ({
   isLoggedIn: false,
-  userData: null
+  userData: null,
+  username: null
 })
 
 export const getters = {
   isLoggedIn: (state) => state.isLoggedIn,
-  user: (state) => state.user
+  user: (state) => state.userData
 }
 
 export const mutations = {
@@ -19,6 +20,7 @@ export const mutations = {
       if (user) {
         state.isLoggedIn = true;
         state.userData = user;
+        state.username = state.userData.displayName;
       } else {
         state.isLoggedIn = false;
       }
