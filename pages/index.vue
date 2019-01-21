@@ -2,6 +2,7 @@
   <section class="container">
     <logo/>
     <Home/>
+    <nuxt-link to="/post/mypage">dd</nuxt-link>
   </section>
 </template>
 
@@ -19,7 +20,7 @@
         if (user) {
           // User is signed in.
           console.log("できてる");
-          return redirect('post/mypage')
+          return redirect('http://localhost:3000/post/mypage')
         } else {
           // No user is signed in.
           console.log("できてない");

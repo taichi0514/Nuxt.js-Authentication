@@ -7,8 +7,6 @@
 
 <script>
   export default {
-    middleware: 'authenticated',
-    props: ['user'],
     methods: {
       logout: function () {
         firebase.auth().signOut();
