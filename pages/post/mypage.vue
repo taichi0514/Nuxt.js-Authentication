@@ -1,6 +1,6 @@
 <template>
   <div id="mypage">
-    <span>こんにちは, {{ $store.state.user.displayName }}さん</span>
+    <span>こんにちは, {{ $store.state.userData.displayName }}さん</span>
 
     <button @click="logout">ログアウト</button>
   </div>
