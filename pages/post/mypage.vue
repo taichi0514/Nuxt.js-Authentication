@@ -1,6 +1,7 @@
 <template>
   <div id="mypage">
-    <span>こんにちは, {{ user }}さん</span>
+    <span>こんにちは, {{ $store.state.user.displayName }}さん</span>
+
     <button @click="logout">ログアウト</button>
   </div>
 </template>
@@ -15,10 +16,9 @@
       },
     },
     created() {
-      {
-        this.$store.dispatch('setUser')
-        // this.$store.state.user = firebase.auth().currentUser
-      }
+      this.$store.dispatch('setUser')
+
+
     }
 
   }
