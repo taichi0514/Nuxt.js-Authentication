@@ -19,7 +19,7 @@
         if (user) {
           // User is signed in.
           console.log("できてる");
-          return redirect('/page/mypage')
+          return redirect('post/mypage')
         } else {
           // No user is signed in.
           console.log("できてない");
