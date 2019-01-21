@@ -1,3 +1,5 @@
+import firebase from '~/plugins/firebase'
+
 export const state = () => ({
   isLoggedIn: false,
   user: null
@@ -9,8 +11,8 @@ export const getters = {
 }
 
 export const mutations = {
-  setUser(state, {user}) {
-    state.user = user
+  setUser(state) {
+    state.user = firebase.auth().currentUser
     state.isLoggedIn = true
   }
 }

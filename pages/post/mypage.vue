@@ -12,8 +12,15 @@
     methods: {
       logout: function () {
         firebase.auth().signOut()
+      },
+    },
+    created() {
+      {
+        this.$store.dispatch('setUser')
+        // this.$store.state.user = firebase.auth().currentUser
       }
     }
+
   }
 </script>
 
