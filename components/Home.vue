@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <button type="button" @click="login">ログインしよう</button>
+    <button type="button" @click="$store.dispatch('setUser'),login">ログインしよう</button>
   </section>
 </template>
 

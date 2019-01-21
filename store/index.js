@@ -16,9 +16,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async login({commit}, {id}) {
-    const user = await this.$axios.$get(`/user/${id}.json`)
-    if (!user.id) throw new Error('Invalid user')
-    commit('setUser', {user})
+  setUser ({ commit }) {
+    commit('setUser')
   }
 }
