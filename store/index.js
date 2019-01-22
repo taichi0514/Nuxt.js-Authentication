@@ -5,7 +5,8 @@ export const strict = false
 export const state = () => ({
   isLoggedIn: false,
   userData: null,
-  username: null
+  username: null,
+  thumbnail: null
 })
 
 export const getters = {
@@ -22,6 +23,7 @@ export const mutations = {
         state.isLoggedIn = true;
         state.userData = user;
         state.username = state.userData.displayName;
+        state.thumbnail = state.userData.photoURL;
       } else {
         state.isLoggedIn = false;
         console.log("できてない")

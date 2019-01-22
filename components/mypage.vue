@@ -1,5 +1,6 @@
 <template>
   <div id="mypage">
+    <figure class="thumbnail"><img :src="this.$store.state.thumbnail" alt=""></figure>
     <span>こんにちは, {{ this.$store.state.username }}さん</span>
 
     <button @click="logout">ログアウト</button>
@@ -19,6 +20,17 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  #mypage {
+    display: flex;
+    flex-direction: column;
+
+    .thumbnail img {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
 
 </style>
