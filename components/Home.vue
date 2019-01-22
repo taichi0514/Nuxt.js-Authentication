@@ -1,7 +1,8 @@
 <template>
   <section class="container">
-    <button type="button" @click="login">ログイン</button>
-    <button type="button" @click="SignUp_view">サインアップ</button>
+    <button type="button" @click="login_view" v-if="!this.$store.state.login & !this.$store.state.signUp">ログイン</button>
+    <button type="button" @click="signUp_view" v-if="!this.$store.state.login & !this.$store.state.signUp">サインアップ
+    </button>
   </section>
 </template>
 
@@ -14,8 +15,8 @@
       login_view: function () {
         this.$store.state.login = true
       },
-      SignUp_view: function () {
-        this.$store.state.SignUp = true
+      signUp_view: function () {
+        this.$store.state.signUp = true
       },
       login: function () {
         firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());

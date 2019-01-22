@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <h2>ログイン</h2>
+    <h2>サインアップ</h2>
     <button type="button"><img width="16" height="16" src="https://d3ptyyxy2at9ui.cloudfront.net/google-41de20.svg">
     </button>
     <button type="button"><img width="16" height="16" src="https://d3ptyyxy2at9ui.cloudfront.net/facebook-fadd25.svg">
@@ -8,7 +8,7 @@
     <p>or</p>
     <input type="text" placeholder="メール" aria-label="メール" :value="$store.state.email" @input="updateEmail">
     <input type="text" placeholder="パスワード" aria-label="パスワード" :value="$store.state.password" @input="updatePass">
-    <button type="button" @click="signIn">ログイン</button>
+    <button type="button" @click="register">ログイン</button>
     <p>{{$store.state.email}}</p>
     <p>{{$store.state.password}}</p>
   </section>
@@ -16,6 +16,7 @@
 
 <script>
   import firebase from '~/plugins/firebase'
+
   export default {
     name: "login",
     methods: {

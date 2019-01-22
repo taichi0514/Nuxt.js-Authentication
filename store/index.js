@@ -7,13 +7,17 @@ export const state = () => ({
   userData: null,
   username: null,
   thumbnail: null,
-  SignUp: false,
-  login: false
+  signUp: false,
+  login: false,
+  email: null,
+  password: null
 })
 
 export const getters = {
   isLoggedIn: (state) => state.isLoggedIn,
-  user: (state) => state.userData
+  user: (state) => state.userData,
+  email: (state) => state.email,
+  password: (state) => state.password
 }
 
 export const mutations = {
@@ -31,6 +35,12 @@ export const mutations = {
         console.log("できてない")
       }
     })
+  },
+  updateEmail(state, email) {
+    state.email = email
+  },
+  updatePass(state, pass) {
+    state.password = pass
   }
 }
 
