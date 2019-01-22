@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="root">
     <nuxt/>
   </div>
 </template>
@@ -51,5 +51,14 @@
   .button--grey:hover {
     color: #fff;
     background-color: #35495e;
+  }
+
+  #root {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
   }
 </style>

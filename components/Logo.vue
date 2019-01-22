@@ -13,8 +13,9 @@
   }
 </script>
 
-<style>
+<style scoped>
   .VueToNuxtLogo {
+    margin-top: 40px;
     display: inline-block;
     animation: turn 2s linear forwards 1s;
     transform: rotateX(180deg);

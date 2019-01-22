@@ -18,11 +18,13 @@ export const mutations = {
     state.isLoggedIn = true
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
+        console.log("できてる")
         state.isLoggedIn = true;
         state.userData = user;
         state.username = state.userData.displayName;
       } else {
         state.isLoggedIn = false;
+        console.log("できてない")
       }
     })
   }

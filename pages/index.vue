@@ -1,40 +1,37 @@
 <template>
   <section class="container">
-    <logo/>
-    <Home/>
-    <nuxt-link to="/post/mypage">dd</nuxt-link>
+    <logo v-if="!this.$store.state.isLoggedIn"/>
+    <Home v-if="!this.$store.state.isLoggedIn"/>
+    <mypage v-if="this.$store.state.isLoggedIn"/>
   </section>
 </template>
 
 <script>
   import Logo from '~/components/Logo.vue'
   import Home from '~/components/Home.vue'
-  import firebase from '~/plugins/firebase'
+  import mypage from '~/components/mypage.vue'
   export default {
     components: {
       Logo,
       Home,
+      mypage
     },
-    asyncData({redirect}) {
-      firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-          // User is signed in.
-          console.log("できてる");
-          return redirect('http://localhost:3000/post/mypage')
-        } else {
-          // No user is signed in.
-          console.log("できてない");
-        }
-      });
-
+    created: function () {
+      this.$store.dispatch('setUser')
+      // firebase.auth().onAuthStateChanged(function (user) {
+      //   if (user) {
+      //     // User is signed in.
+      //     this.$store.dispatch('setUser')
+      //   }
+      // });
     }
   }
 </script>
 
-<style>
+<style scoped>
 
   .container {
-    min-height: 100vh;
+    transform: translateY(-50%);
     display: flex;
     justify-content: center;
     align-items: center;

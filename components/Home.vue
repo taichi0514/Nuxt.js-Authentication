@@ -17,10 +17,10 @@
   }
 </script>
 
-<style>
+<style scoped>
 
   .container {
-    min-height: 100vh;
+    margin-top: 40px;
     display: flex;
     justify-content: center;
     align-items: center;

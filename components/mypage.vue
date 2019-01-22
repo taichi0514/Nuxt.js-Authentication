@@ -14,9 +14,6 @@
       logout: function () {
         firebase.auth().signOut()
       },
-    },
-    mounted() {
-      this.$store.dispatch('setUser')
     }
 
   }
