@@ -2,6 +2,7 @@
   <section class="container">
     <logo v-if="!this.$store.state.isLoggedIn"/>
     <Home v-if="!this.$store.state.isLoggedIn"/>
+    <login v-if="this.$store.state.login"/>
     <mypage v-if="this.$store.state.isLoggedIn"/>
   </section>
 </template>
@@ -10,11 +11,13 @@
   import Logo from '~/components/Logo.vue'
   import Home from '~/components/Home.vue'
   import mypage from '~/components/mypage.vue'
+  import login from '~/components/login.vue'
   export default {
     components: {
       Logo,
       Home,
-      mypage
+      mypage,
+      login
     },
     created: function () {
       this.$store.dispatch('setUser')

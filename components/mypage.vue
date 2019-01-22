@@ -1,6 +1,7 @@
 <template>
   <div id="mypage">
-    <figure class="thumbnail"><img :src="this.$store.state.thumbnail" alt=""></figure>
+    <figure class="thumbnail" v-show="this.$store.state.thumbnail"><img :src="this.$store.state.thumbnail" alt="">
+    </figure>
     <span>こんにちは, {{ this.$store.state.username }}さん</span>
 
     <button @click="logout">ログアウト</button>

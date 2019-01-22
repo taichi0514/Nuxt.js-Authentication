@@ -6,7 +6,9 @@ export const state = () => ({
   isLoggedIn: false,
   userData: null,
   username: null,
-  thumbnail: null
+  thumbnail: null,
+  SignUp: false,
+  login: false
 })
 
 export const getters = {

@@ -1,6 +1,7 @@
 <template>
   <section class="container">
-    <button type="button" @click="login">ログインしよう</button>
+    <button type="button" @click="login_view">ログイン</button>
+    <button type="button" @click="SignUp_view">サインアップ</button>
   </section>
 </template>
 
@@ -10,6 +11,12 @@
   export default {
     name: 'home',
     methods: {
+      login_view: function () {
+        this.$store.state.login = true
+      },
+      SignUp_view: function () {
+        this.$store.state.SignUp = true
+      },
       login: function () {
         firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
       }
