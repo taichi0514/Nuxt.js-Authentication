@@ -39,11 +39,7 @@
 
   .container {
     transform: translateY(-50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    flex-direction: column;
+
   }
 
 </style>

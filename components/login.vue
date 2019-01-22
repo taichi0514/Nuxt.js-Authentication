@@ -12,6 +12,7 @@
     <button type="button" @click="signIn">ログイン</button>
     <p>{{$store.state.email}}</p>
     <p>{{$store.state.password}}</p>
+    <el-button type="button" @click="returnBtn">戻る</el-button>
   </section>
 </template>
 
@@ -37,6 +38,9 @@
       },
       googleSign() {
         firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+      },
+      returnBtn() {
+        this.$store.state.login = false
       }
     }
   }

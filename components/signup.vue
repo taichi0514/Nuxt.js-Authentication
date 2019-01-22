@@ -11,6 +11,7 @@
     <button type="button" @click="register">ログイン</button>
     <p>{{$store.state.email}}</p>
     <p>{{$store.state.password}}</p>
+    <el-button type="button" @click="returnBtn">戻る</el-button>
   </section>
 </template>
 
@@ -34,6 +35,9 @@
       },
       signIn() {
         firebase.auth().signInWithEmailAndPassword(this.$store.state.email, this.$store.state.password)
+      },
+      returnBtn() {
+        this.$store.state.signUp = false
       }
     }
   }

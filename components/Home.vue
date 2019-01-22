@@ -1,8 +1,9 @@
 <template>
   <section class="container">
-    <button type="button" @click="login_view" v-if="!this.$store.state.login & !this.$store.state.signUp">ログイン</button>
-    <button type="button" @click="signUp_view" v-if="!this.$store.state.login & !this.$store.state.signUp">サインアップ
-    </button>
+    <el-button type="button" @click="login_view" v-if="!this.$store.state.login & !this.$store.state.signUp">ログイン
+    </el-button>
+    <el-button type="button" @click="signUp_view" v-if="!this.$store.state.login & !this.$store.state.signUp">サインアップ
+    </el-button>
   </section>
 </template>
 
@@ -30,7 +31,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    flex-direction: column;
+    /*flex-direction: column;*/
   }
 
 </style>
