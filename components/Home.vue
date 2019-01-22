@@ -17,9 +17,6 @@
       },
       signUp_view: function () {
         this.$store.state.signUp = true
-      },
-      login: function () {
-        firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
       }
     }
   }
