@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <button type="button" @click="login_view">ログイン</button>
+    <button type="button" @click="login">ログイン</button>
     <button type="button" @click="SignUp_view">サインアップ</button>
   </section>
 </template>

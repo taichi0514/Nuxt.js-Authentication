@@ -12,6 +12,7 @@
   import Home from '~/components/Home.vue'
   import mypage from '~/components/mypage.vue'
   import login from '~/components/login.vue'
+  import firebase from '~/plugins/firebase'
   export default {
     components: {
       Logo,
@@ -19,14 +20,14 @@
       mypage,
       login
     },
-    created: function () {
-      this.$store.dispatch('setUser')
-      // firebase.auth().onAuthStateChanged(function (user) {
-      //   if (user) {
-      //     // User is signed in.
-      //     this.$store.dispatch('setUser')
-      //   }
-      // });
+    created() {
+      // this.$store.dispatch('setUser')
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          // User is signed in.
+          this.$store.dispatch('setUser')
+        }
+      });
     }
   }
 </script>
