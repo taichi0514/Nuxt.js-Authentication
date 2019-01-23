@@ -48,7 +48,6 @@
 
 <style scoped lang="scss">
   .container {
-    margin-top: 40px;
     display: flex;
     flex-direction: column;
   }
