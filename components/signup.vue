@@ -4,8 +4,6 @@
     <button type="button" @click="googleSign"><img width="16" height="16"
                                                    src="https://d3ptyyxy2at9ui.cloudfront.net/google-41de20.svg">
     </button>
-    <button type="button"><img width="16" height="16" src="https://d3ptyyxy2at9ui.cloudfront.net/facebook-fadd25.svg">
-    </button>
     <p>or</p>
     <input type="text" placeholder="メール" aria-label="メール" :value="$store.state.email" @input="updateEmail">
     <input type="text" placeholder="パスワード" aria-label="パスワード" :value="$store.state.password" @input="updatePass">
