@@ -1,8 +1,8 @@
 <template>
   <section class="container">
     <h2>ログイン</h2>
-    <button type="button" @click="googleLogin"><img width="16" height="16"
-                                                    src="https://d3ptyyxy2at9ui.cloudfront.net/google-41de20.svg">
+    <button type="button" @click="googleSign"><img width="16" height="16"
+                                                   src="https://d3ptyyxy2at9ui.cloudfront.net/google-41de20.svg">
     </button>
     <button type="button"><img width="16" height="16" src="https://d3ptyyxy2at9ui.cloudfront.net/facebook-fadd25.svg">
     </button>
@@ -12,6 +12,7 @@
     <button type="button" @click="signIn">ログイン</button>
     <p>{{$store.state.email}}</p>
     <p>{{$store.state.password}}</p>
+    <el-button type="button" @click="returnBtn">戻る</el-button>
   </section>
 </template>
 
@@ -35,8 +36,11 @@
       signIn() {
         firebase.auth().signInWithEmailAndPassword(this.$store.state.email, this.$store.state.password)
       },
-      googleLogin() {
+      googleSign() {
         firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+      },
+      returnBtn() {
+        this.$store.state.login = false
       }
     }
   }
@@ -44,7 +48,6 @@
 
 <style scoped lang="scss">
   .container {
-    margin-top: 40px;
     display: flex;
     flex-direction: column;
   }
