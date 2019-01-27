@@ -18,28 +18,20 @@
   import firebase from '~/plugins/firebase'
 
   export default {
-    name: "login",
+    name: "signup",
+    fetch({redirect}) {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          return redirect('/mypage')
+        }
+      })
+    },
     methods: {
-      updateEmail(e) {
-        this.$store.commit('updateEmail', e.target.value)
-      },
-      updatePass(e) {
-        this.$store.commit('updatePass', e.target.value)
-      },
-      register() {
-        firebase.auth().createUserWithEmailAndPassword(this.$store.state.email, this.$store.state.password)
-      },
-      signOut() {
-        firebase.auth().signOut()
-      },
-      signIn() {
-        firebase.auth().signInWithEmailAndPassword(this.$store.state.email, this.$store.state.password)
-      },
       googleSign() {
         firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
       },
       returnBtn() {
-        this.$store.state.signUp = false
+        this.$store.state.login = false
       }
     }
   }

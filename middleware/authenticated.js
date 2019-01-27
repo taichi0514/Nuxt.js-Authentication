@@ -1,16 +1,9 @@
 export default function ({store, redirect}) {
-  // ユーザーが認証されていないとき
-  firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      // User is signed in.
-      console.log("できてる");
+  fetch()
+  {
+    if (this.$store.state.isLoggedIn) {
+      console.log("redirect")
       return redirect('/mypage')
-    } else {
-      // No user is signed in.
-      console.log("できてない");
     }
-  });
+  }
 }
-
-
-
