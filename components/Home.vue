@@ -4,8 +4,8 @@
       <el-button type="button" @click="login_view">ログイン
       </el-button>
     </nuxt-link>
-    <el-button type="button" @click="signUp_view">サインアップ
-    </el-button>
+    <!--<el-button type="button" @click="signUp_view">サインアップ-->
+    <!--</el-button>-->
   </section>
 </template>
 

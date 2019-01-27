@@ -12,6 +12,13 @@
   import firebase from '~/plugins/firebase'
 
   export default {
+    fetch({redirect}) {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+          return redirect('/')
+        }
+      })
+    },
     methods: {
       logout: function () {
         firebase.auth().signOut()

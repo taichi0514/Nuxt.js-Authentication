@@ -61,12 +61,20 @@
     text-align: center;
     flex-direction: column;
   }
+
+  .page-enter-active, .page-leave-active {
+    transition: opacity .5s;
+  }
+
+  .page-enter, .page-leave-to {
+    opacity: 0;
+  }
 </style>
 <script>
   import firebase from '~/plugins/firebase'
 
   export default {
-    middleware: 'authenticated',
+    // middleware: 'authenticated',
     created() {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -74,7 +82,6 @@
           this.$store.dispatch('setUser')
         }
       })
-    },
-
+    }
   }
 </script>

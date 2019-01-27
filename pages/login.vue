@@ -12,6 +12,14 @@
   import firebase from '~/plugins/firebase'
   export default {
     name: "login",
+    fetch({redirect}) {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          console.log("redirect")
+          return redirect('/mypage')
+        }
+      })
+    },
     methods: {
       googleSign() {
         firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider());
