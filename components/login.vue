@@ -1,6 +1,5 @@
 <template>
   <section class="container">
-    <h2>ログイン</h2>
     <el-button type="button" @click="githubSignin">GitHubでログイン</el-button>
   </section>
 </template>

@@ -3,7 +3,7 @@
     <figure class="thumbnail" v-show="this.$store.state.thumbnail"><img :src="this.$store.state.thumbnail" alt="">
     </figure>
     <span>こんにちは, {{ this.$store.state.username }}さん</span>
-    <button @click="logout">ログアウト</button>
+    <el-button @click="logout">ログアウト</el-button>
   </div>
 </template>
 
@@ -37,6 +37,10 @@
       height: 300px;
       border-radius: 50%;
       object-fit: cover;
+    }
+
+    .el-button {
+      margin-top: 20px;
     }
   }
 

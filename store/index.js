@@ -30,6 +30,7 @@ export const mutations = {
         state.userData = user;
         state.username = state.userData.displayName;
         state.thumbnail = state.userData.photoURL;
+        console.log(user)
       } else {
         state.isLoggedIn = false;
         console.log("できてない")
