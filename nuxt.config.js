@@ -2,11 +2,14 @@ const pkg = require('./package')
 
 module.exports = {
   mode: 'spa',
+  router: {
+    middleware: 'mypage'
+  },
   /*
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: "Git Notification",
     meta: [
       {charset: 'utf-8'},
       {name: 'viewport', content: 'width=device-width, initial-scale=1'},
@@ -33,7 +36,10 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
+    {src: "@/plugins/localStorage.js", ssr: false},
+    {src: '~/plugins/vue-notification.js', ssr: false}
+
   ],
 
   /*
@@ -41,15 +47,27 @@ module.exports = {
   */
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
+
   /*
   ** Axios module configuration
   */
   axios: {
-    // See https://github.com/nuxt-community/axios-module#options
+    prefix: 'https://api.github.com',
+    proxy: true,
+    https: true,
+    // proxyHeaders: true,
+    // credentials: true,
   },
-
+  proxy: {
+    '/api/': {
+      target: 'https://api.github.com', pathRewrite: {'^/api/': ''},
+      "changeOrigin": true,
+      "secure": false
+    }
+  },
   /*
   ** Build configuration
   */
@@ -57,6 +75,7 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
+    vendor: ['@nuxtjs/axios'],
     extend(config, ctx) {
 
     }

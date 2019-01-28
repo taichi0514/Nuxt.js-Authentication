@@ -8,7 +8,6 @@
 <script>
   import Logo from '~/components/Logo.vue'
   import login from '~/components/login.vue'
-  import firebase from '~/plugins/firebase'
   export default {
     components: {
       Logo,
