@@ -2,7 +2,7 @@
   <div id="mypage">
     <figure class="thumbnail" v-show="this.$store.state.thumbnail"><img :src="this.$store.state.thumbnail" alt="">
     </figure>
-    <span>こんにちは, {{ this.$store.state.username }}さん</span>
+    <p>こんにちは, {{ this.$store.state.username }}さん</p>
     <el-button @click="logout">ログアウト</el-button>
   </div>
 </template>

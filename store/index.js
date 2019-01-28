@@ -10,7 +10,7 @@ export const state = () => ({
   signUp: false,
   login: false,
   email: null,
-  password: null
+  uid: null
 })
 
 export const getters = {
@@ -25,15 +25,14 @@ export const mutations = {
     state.isLoggedIn = true
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        console.log("できてる")
         state.isLoggedIn = true;
         state.userData = user;
         state.username = state.userData.displayName;
         state.thumbnail = state.userData.photoURL;
-        console.log(user)
+        state.email = state.userData.email;
+        state.uid = state.userData.uid;
       } else {
         state.isLoggedIn = false;
-        console.log("できてない")
       }
     })
   },
