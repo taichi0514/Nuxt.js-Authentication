@@ -74,12 +74,14 @@
   import firebase from '~/plugins/firebase'
 
   export default {
-    // middleware: 'authenticated',
     created() {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           // User is signed in.
           this.$store.dispatch('setUser')
+          this.$router.push('/mypage')
+        } else {
+          this.$router.push('/')
         }
       })
     }
