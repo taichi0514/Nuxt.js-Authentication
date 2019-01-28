@@ -31,6 +31,7 @@ export const mutations = {
         state.thumbnail = state.userData.photoURL;
         state.email = state.userData.email;
         state.uid = state.userData.uid;
+        state.feedUrl = (`https://github.com/ + ${userData.uid} + .private.atom?token= + ${state.uid}`);
       } else {
         state.isLoggedIn = false;
       }
