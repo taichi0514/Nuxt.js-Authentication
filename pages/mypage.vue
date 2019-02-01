@@ -3,6 +3,9 @@
     <figure class="thumbnail" v-show="this.$store.state.thumbnail"><img :src="this.$store.state.thumbnail" alt="">
     </figure>
     <p>こんにちは, {{ this.$store.state.username }}さん</p>
+    <!--<p>こんにちは,{{ this.$store.state.providerUser }}</p>-->
+    <!--<p>こんにちは, {{ this.$store.state.token }}さん</p>-->
+    <p>こんにちは, {{ this.$store.getters.isLoggedIn }}さん</p>
     <el-button @click="logout">ログアウト</el-button>
   </div>
 </template>
@@ -15,23 +18,7 @@
       logout() {
         firebase.auth().signOut();
       }
-    },
-    modules: [
-      // Simple usage
-      '@nuxtjs/feed'
-    ],
-    feed: [
-      {
-        path: (`https://github.com/ + {this.$store.state.username} + .private.atom?token= + {this.$store.state.state.uid}`), // The route to your feed.
-        async create(feed) {
-
-        }, // The create function (see below)
-        cacheTime: 1000 * 60 * 15, // How long should the feed be cached
-        type: 'rss2', // Can be: rss2, atom1, json1
-        data: ['Some additional data'] //will be passed as 2nd argument to `create` function
-      }
-    ]
-
+    }
   }
 </script>
 

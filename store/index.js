@@ -3,50 +3,50 @@ import firebase from '~/plugins/firebase'
 export const strict = false
 
 export const state = () => ({
-  isLoggedIn: false,
-  userData: null,
+  user: null,
   username: null,
   thumbnail: null,
-  signUp: false,
-  login: false,
   email: null,
-  uid: null
+  uid: null,
+  token: null,
+  providerUser: null
 })
 
 export const getters = {
-  isLoggedIn: (state) => state.isLoggedIn,
-  user: (state) => state.userData,
-  email: (state) => state.email,
-  password: (state) => state.password
+  isLoggedIn: (state) => state.user ? true : false,
 }
 
 export const mutations = {
   setUser(state) {
-    state.isLoggedIn = true
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        state.isLoggedIn = true;
-        state.userData = user;
-        state.username = state.userData.displayName;
-        state.thumbnail = state.userData.photoURL;
-        state.email = state.userData.email;
-        state.uid = state.userData.uid;
-        state.feedUrl = (`https://github.com/ + ${userData.uid} + .private.atom?token= + ${state.uid}`);
+        state.user = user;
+        state.username = state.user.displayName;
+        state.thumbnail = state.user.photoURL;
+        state.email = state.user.email;
+        state.uid = state.user.uid;
+        getters.isLoggedIn;
       } else {
-        state.isLoggedIn = false;
+        getters.isLoggedIn;
       }
     })
   },
-  updateEmail(state, email) {
-    state.email = email
-  },
-  updatePass(state, pass) {
-    state.password = pass
+  githubSignin(state) {
+    if (!firebase.auth().currentUser) {
+      const provider = new firebase.auth.GithubAuthProvider();
+      firebase.auth().signInWithPopup(provider).then(function (result) {
+        state.token = result.credential.accessToken;
+        state.providerUser = result.user;
+      });
+    }
   }
 }
 
 export const actions = {
   setUser({commit}) {
     commit('setUser')
+  },
+  githubSignin({commit}) {
+    commit('githubSignin')
   }
 }
