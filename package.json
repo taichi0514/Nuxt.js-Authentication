@@ -17,6 +17,7 @@
     "element-ui": "^2.4.6",
     "firebase": "^5.8.0",
     "firebase-tools": "^6.3.0",
+    "github-api": "^3.0.0",
     "node-sass": "^4.11.0",
     "nuxt": "^2.0.0",
     "sass-loader": "^7.1.0",

@@ -13,12 +13,30 @@
 
 <script>
   import firebase from '~/plugins/firebase'
+  import GitHub from 'github-api';
 
+  const github = new GitHub({
+    // username: 'taichi0514',
+    // password: 'MPxoXAKyrKfscrb2zaz6',
+    token: 'c4a75101fce4f3e305d417af37d804df7aed9985'
+  });
   export default {
     methods: {
       logout() {
         firebase.auth().signOut();
       }
+    },
+    created() {
+      const my = github.getUser()
+      console.log('me', my)
+      my.listNotifications({all: true}, function (err, notifications) {
+        console.log('notifications.updated_at', notifications.updated_at);
+        console.log(err);
+      });
+      my.listStarredRepos(function (err, repos) {
+        console.log('repos', repos);
+        console.log(err);
+      });
     }
   }
 </script>
