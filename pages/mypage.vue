@@ -6,6 +6,7 @@
     <!--<p>こんにちは,{{ this.$store.state.providerUser }}</p>-->
     <!--<p>こんにちは, {{ this.$store.state.token }}さん</p>-->
     <p>こんにちは, {{ this.$store.getters.isLoggedIn }}さん</p>
+    <p>{{ this.$store.state.feedUrl }}</p>
     <el-button @click="logout">ログアウト</el-button>
   </div>
 </template>

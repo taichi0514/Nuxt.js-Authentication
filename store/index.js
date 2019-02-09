@@ -9,7 +9,8 @@ export const state = () => ({
   email: null,
   uid: null,
   token: null,
-  providerUser: null
+  providerUser: null,
+  feedUrl: null
 })
 
 export const getters = {
@@ -25,6 +26,7 @@ export const mutations = {
         state.thumbnail = state.user.photoURL;
         state.email = state.user.email;
         state.uid = state.user.uid;
+        state.feedUrl = "https://github.com/" + "taichi0514" + ".private.atom?token=" + state.token;
         getters.isLoggedIn;
       } else {
         getters.isLoggedIn;
@@ -34,9 +36,10 @@ export const mutations = {
   githubSignin(state) {
     if (!firebase.auth().currentUser) {
       const provider = new firebase.auth.GithubAuthProvider();
+      provider.addScope('repo');
       firebase.auth().signInWithPopup(provider).then(function (result) {
         state.token = result.credential.accessToken;
-        state.providerUser = result.user;
+        state.user = result.user;
       });
     }
   }
