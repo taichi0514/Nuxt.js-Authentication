@@ -80,9 +80,6 @@ export const mutations = {
       },
       params: {
         last_read_at: "Time.now"
-      },
-      body: {
-        scopes: ["repo"]
       }
     }).then(response => {
       state.notifications = response.data;
@@ -108,13 +105,9 @@ export const mutations = {
       url: "notifications",
       headers: {
         Authorization: "token " + state.token
-        // 'Time-Zone': ' Asia/Tokyo'
       },
       params: {
         last_read_at: date
-      },
-      body: {
-        scopes: ["repo"]
       }
     }).then(response => {
       if (Object.keys(response.data).length > state.notifications.length) {
