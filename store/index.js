@@ -1,9 +1,8 @@
-import firebase from '~/plugins/firebase'
-import createPersistedState from 'vuex-persistedstate'
-import GitHub from 'github-api'
-import moment from 'moment'
+import firebase from "~/plugins/firebase";
+import createPersistedState from "vuex-persistedstate";
+import moment from "moment";
 
-export const strict = false
+export const strict = false;
 
 export const state = () => ({
   user: null,
@@ -14,12 +13,12 @@ export const state = () => ({
   token: null,
   providerUser: null,
   notifications: [],
-  isLoggedIn: null,
-})
+  isLoggedIn: null
+});
 
 export const getters = {
-  isLoggedIn: (state) => state.user ? true : false
-}
+  isLoggedIn: state => (state.user ? true : false)
+};
 
 export const mutations = {
   setUser(state) {
@@ -34,16 +33,19 @@ export const mutations = {
       } else {
         state.isLoggedIn = false;
       }
-    })
+    });
   },
   githubSignin(state) {
     if (!firebase.auth().currentUser) {
       const provider = new firebase.auth.GithubAuthProvider();
-      provider.addScope('notifications');
-      firebase.auth().signInWithPopup(provider).then(function (result) {
-        state.token = result.credential.accessToken;
-        state.user = result.user;
-      });
+      provider.addScope("repo");
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(function(result) {
+          state.token = result.credential.accessToken;
+          state.user = result.user;
+        });
     }
   },
 
@@ -54,14 +56,14 @@ export const mutations = {
           isLoggedIn: state.isLoggedIn
         }),
         storage: window.sessionStorage
-      })
+      });
     } else if (firebase.auth().currentUser) {
       createPersistedState({
         reducer: state => ({
           isLoggedIn: state.isLoggedIn
         }),
         storage: window.sessionStorage
-      })
+      });
     }
   },
 
@@ -70,16 +72,22 @@ export const mutations = {
   },
 
   Notification_get(state) {
-    const github = new GitHub({
-      token: state.token
+    this.$axios({
+      method: "GET",
+      url: "notifications",
+      headers: {
+        Authorization: "token " + state.token
+      },
+      params: {
+        last_read_at: "Time.now"
+      },
+      body: {
+        scopes: ["repo"]
+      }
+    }).then(response => {
+      state.notifications = response.data;
     });
-    const my = github.getUser();
-    const Notifications = (state) => my.listNotifications((err, notifications) => {
-      state.notifications = notifications;
-    })
-    Notifications(state, my);
-  }
-  ,
+  },
   Notifications_now(state) {
     const spawnNotification = (theTitle, theBody, theIcon) => {
       const options = {
@@ -87,54 +95,58 @@ export const mutations = {
         body: theBody,
         icon: theIcon,
         vibrate: [200, 100, 200]
-      }
+      };
       const n = new Notification(theTitle, options);
       setTimeout(n.close.bind(n), 5000);
-    }
-    const oneDay = moment.duration(1, 'minutes')
-    let date = moment().subtract(oneDay).toISOString()
+    };
+    const oneDay = moment.duration(1, "minutes");
+    let date = moment()
+      .subtract(oneDay)
+      .toISOString();
     this.$axios({
-      method: 'GET',
-      url: 'notifications',
+      method: "GET",
+      url: "notifications",
       headers: {
-        'Authorization': 'token ' + state.token,
+        Authorization: "token " + state.token
         // 'Time-Zone': ' Asia/Tokyo'
       },
       params: {
-        last_read_at: date,
+        last_read_at: date
       },
       body: {
-        "scopes": ["repo", "user"]
+        scopes: ["repo"]
       }
-    }).then((response) => {
+    }).then(response => {
       if (Object.keys(response.data).length > state.notifications.length) {
         state.notifications = response.data;
-        spawnNotification(response.data[0].subject.title, response.data[0].subject.type)
+        spawnNotification(
+          response.data[0].subject.title,
+          response.data[0].subject.type
+        );
       }
-    })
+    });
   }
-
-}
+};
 
 export const actions = {
-  setUser({commit}) {
-    commit('setUser')
+  setUser({ commit }) {
+    commit("setUser");
   },
-  githubSignin({commit}) {
-    commit('githubSignin')
+  githubSignin({ commit }) {
+    commit("githubSignin");
   },
-  isLoggedIn({commit}) {
-    commit('isLoggedIn')
+  isLoggedIn({ commit }) {
+    commit("isLoggedIn");
   },
-  Notification_get({commit}) {
-    commit('Notification_get')
+  Notification_get({ commit }) {
+    commit("Notification_get");
   },
-  NotificationsDelete({commit}) {
-    commit('NotificationsDelete')
+  NotificationsDelete({ commit }) {
+    commit("NotificationsDelete");
   },
-  Notifications_now({commit}) {
+  Notifications_now({ commit }) {
     return setTimeout(() => {
-      commit('Notifications_now')
-    }, 60000)
+      commit("Notifications_now");
+    }, 60000);
   }
-}
+};
