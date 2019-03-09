@@ -38,7 +38,7 @@ export const mutations = {
   githubSignin(state) {
     if (!firebase.auth().currentUser) {
       const provider = new firebase.auth.GithubAuthProvider();
-      provider.addScope("repo");
+      provider.addScope("read:org");
       firebase
         .auth()
         .signInWithPopup(provider)
