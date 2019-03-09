@@ -1,83 +1,76 @@
-const pkg = require('./package')
+const pkg = require("./package");
 
 module.exports = {
-  mode: 'spa',
+  mode: "spa",
   router: {
-    middleware: 'mypage'
+    middleware: "mypage"
   },
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
     title: "Git Notification",
     meta: [
-      {charset: 'utf-8'},
-      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-      {hid: 'description', name: 'description', content: pkg.description}
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { hid: "description", name: "description", content: pkg.description }
     ],
-    link: [
-      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
-    ]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
 
   /*
-  ** Customize the progress-bar color
-  */
-  loading: {color: '#fff'},
+   ** Customize the progress-bar color
+   */
+  loading: { color: "#fff" },
 
   /*
-  ** Global CSS
-  */
-  css: [
-    'element-ui/lib/theme-chalk/index.css'
-  ],
+   ** Global CSS
+   */
+  css: ["element-ui/lib/theme-chalk/index.css"],
 
   /*
-  ** Plugins to load before mounting the App
-  */
+   ** Plugins to load before mounting the App
+   */
   plugins: [
-    '@/plugins/element-ui',
-    {src: "@/plugins/localStorage.js", ssr: false},
-    {src: '~/plugins/vue-notification.js', ssr: false}
-
+    "@/plugins/element-ui",
+    { src: "@/plugins/localStorage.js", ssr: false }
   ],
 
   /*
-  ** Nuxt.js modules
-  */
+   ** Nuxt.js modules
+   */
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
-    '@nuxtjs/axios',
-    '@nuxtjs/proxy'
+    "@nuxtjs/axios",
+    "@nuxtjs/proxy"
   ],
 
   /*
-  ** Axios module configuration
-  */
+   ** Axios module configuration
+   */
   axios: {
-    prefix: 'https://api.github.com',
+    prefix: "https://api.github.com",
     proxy: true,
-    https: true,
+    https: true
     // proxyHeaders: true,
     // credentials: true,
   },
   proxy: {
-    '/api/': {
-      target: 'https://api.github.com', pathRewrite: {'^/api/': ''},
-      "changeOrigin": true,
-      "secure": false
+    "/api/": {
+      target: "https://api.github.com",
+      pathRewrite: { "^/api/": "" },
+      changeOrigin: true,
+      secure: false
     }
   },
   /*
-  ** Build configuration
-  */
+   ** Build configuration
+   */
   build: {
     /*
-    ** You can extend webpack config here
-    */
-    vendor: ['@nuxtjs/axios'],
-    extend(config, ctx) {
-
-    }
+     ** You can extend webpack config here
+     */
+    vendor: ["@nuxtjs/axios"],
+    extend(config, ctx) {}
   }
-}
+};
