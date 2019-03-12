@@ -138,7 +138,7 @@ export const actions = {
     commit("NotificationsDelete");
   },
   Notifications_now({ commit }) {
-    return setTimeout(() => {
+    return setInterval(() => {
       commit("Notifications_now");
     }, 60000);
   }
