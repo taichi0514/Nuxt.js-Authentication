@@ -33,7 +33,8 @@ module.exports = {
    */
   plugins: [
     "@/plugins/element-ui",
-    { src: "@/plugins/localStorage.js", ssr: false }
+    {src: "@/plugins/localStorage.js", ssr: false},
+    {src: '@/plugins/registerSW.js', ssl: false}
   ],
 
   /*

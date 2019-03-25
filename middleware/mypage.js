@@ -10,8 +10,8 @@ export default function ({route, redirect, store}) {
   }
 
 
-    notifyMe();
-    store.dispatch("Notification_get");
-    store.dispatch("Notifications_now");
-    store.dispatch("isLoggedIn");
-  }
+  notifyMe();
+  store.dispatch("Notification_get");
+  store.dispatch("Notifications_now");
+  store.dispatch("isLoggedIn");
+}
