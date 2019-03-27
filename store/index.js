@@ -42,7 +42,7 @@ export const mutations = {
       firebase
         .auth()
         .signInWithPopup(provider)
-        .then(function(result) {
+        .then(function (result) {
           state.token = result.credential.accessToken;
           state.user = result.user;
         });
@@ -74,7 +74,7 @@ export const mutations = {
   Notification_get(state) {
     this.$axios({
       method: "GET",
-      url: "notifications",
+      url: process.env.GITHUB + "/notifications",
       headers: {
         Authorization: "token " + state.token
       },
@@ -102,7 +102,7 @@ export const mutations = {
       .toISOString();
     this.$axios({
       method: "GET",
-      url: "notifications",
+      url: process.env.GITHUB + "/notifications",
       headers: {
         Authorization: "token " + state.token
       },
@@ -112,32 +112,62 @@ export const mutations = {
     }).then(response => {
       if (Object.keys(response.data).length > state.notifications.length) {
         state.notifications = response.data;
-        spawnNotification(
-          response.data[0].subject.title,
-          response.data[0].subject.type
-        );
+        const messaging = firebase.messaging()
+        messaging.requestPermission()
+          .then(() => {
+            console.log('Have permission')
+            return messaging.getToken() //ユーザにプッシュ通知を表示する権限の許可を表示
+          }).then((currentToken) => {
+          if (currentToken) {
+            // プッシュ通知を受信し，表示できる状態
+            let argObj = { // 受信者のトークンIDと通知内容
+              to: currentToken,
+              notification: {
+                body: response.data[0].subject.type,
+                title: response.data[0].subject.title,
+                click_action: 'https://fcm.googleapis.com/',
+                // icon: 'アイコン'
+              }
+            }
+            //.post('https://fcm.googleapis.com/fcm/send', argObj, optionObj)
+            let optionObj = { //送信者のサーバーキー
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'AAAAifBIKc4:APA91bHbcMZxWF5KeV31inKgl6xlJM-Uzff5uHuO58EWecIo8JClZimFV52mYN29zvgNnP03Q0V4Buv0nQneO6y_mCeKMmXx90W3ibvO7p6b_c1GP_A09mQY4mRi6BObR-pF7VlGnomE'
+              }
+            }
+            this.$axios.post(process.env.FIREBASE, argObj, optionObj).catch((err) => {
+              console.log('Error Occurred.')
+            })
+            // spawnNotification(
+            //   response.data[0].subject.title,
+            //   response.data[0].subject.type
+            // );
+          }
+        });
+
       }
     });
   }
 };
 
 export const actions = {
-  setUser({ commit }) {
+  setUser({commit}) {
     commit("setUser");
   },
-  githubSignin({ commit }) {
+  githubSignin({commit}) {
     commit("githubSignin");
   },
-  isLoggedIn({ commit }) {
+  isLoggedIn({commit}) {
     commit("isLoggedIn");
   },
-  Notification_get({ commit }) {
+  Notification_get({commit}) {
     commit("Notification_get");
   },
-  NotificationsDelete({ commit }) {
+  NotificationsDelete({commit}) {
     commit("NotificationsDelete");
   },
-  Notifications_now({ commit }) {
+  Notifications_now({commit}) {
     return setInterval(() => {
       commit("Notifications_now");
     }, 60000);

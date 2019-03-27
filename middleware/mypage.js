@@ -9,6 +9,13 @@ export default function ({route, redirect, store}) {
     }
   }
 
+  var messaging = firebase.messaging();
+
+  messaging.getToken().then((currentToken) => {
+    if (currentToken) {
+      console.log(currentToken);
+    }
+  });
 
   notifyMe();
   store.dispatch("Notification_get");

@@ -11,17 +11,22 @@ module.exports = {
   head: {
     title: "Git Notification",
     meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { hid: "description", name: "description", content: pkg.description }
+      {charset: "utf-8"},
+      {name: "viewport", content: "width=device-width, initial-scale=1"},
+      {hid: "description", name: "description", content: pkg.description}
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+    link: [{rel: "icon", type: "image/x-icon", href: "/favicon.ico"}]
   },
+
+  manifest: {
+    "gcm_sender_id": "AIzaSyCFt8oCEccawoxNvSl02Pdfa9XsNndDCag"
+  },
+
 
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: "#fff" },
+  loading: {color: "#fff"},
 
   /*
    ** Global CSS
@@ -42,27 +47,20 @@ module.exports = {
    */
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
-    "@nuxtjs/axios",
-    "@nuxtjs/proxy"
+    "@nuxtjs/axios"
   ],
 
   /*
    ** Axios module configuration
    */
   axios: {
-    prefix: "https://api.github.com",
+    prefix: "https://",
     proxy: true,
     https: true
-    // proxyHeaders: true,
-    // credentials: true,
   },
-  proxy: {
-    "/api/": {
-      target: "https://api.github.com",
-      pathRewrite: { "^/api/": "" },
-      changeOrigin: true,
-      secure: false
-    }
+  env: {
+    GITHUB: process.env.BASE_URL || 'api.github.com',
+    FIREBASE: process.env.BASE_URL || 'fcm.googleapis.com/v1/projects/nuxtjs-authentication/'
   },
   /*
    ** Build configuration
@@ -72,6 +70,7 @@ module.exports = {
      ** You can extend webpack config here
      */
     vendor: ["@nuxtjs/axios"],
-    extend(config, ctx) {}
+    extend(config, ctx) {
+    }
   }
 };

@@ -36,7 +36,7 @@ export default {
       this.$store.dispatch("NotificationsDelete"),
         this.$axios({
           method: "PUT",
-          url: "notifications",
+          url: process.env.GITHUB + "/notifications",
           headers: {
             Authorization: "token " + this.$store.state.token
           },
