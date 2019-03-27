@@ -19,7 +19,7 @@ module.exports = {
   },
 
   manifest: {
-    "gcm_sender_id": "AIzaSyCFt8oCEccawoxNvSl02Pdfa9XsNndDCag"
+    "gcm_sender_id": "103953800507"
   },
 
 
@@ -54,13 +54,13 @@ module.exports = {
    ** Axios module configuration
    */
   axios: {
-    prefix: "https://",
+    // prefix: "https://",
     proxy: true,
     https: true
   },
   env: {
-    GITHUB: process.env.BASE_URL || 'api.github.com',
-    FIREBASE: process.env.BASE_URL || 'fcm.googleapis.com/v1/projects/nuxtjs-authentication/'
+    NUXT_ENV_GITHUB: 'https://api.github.com',
+    NUXT_ENV_FIREBASE: 'https://fcm.googleapis.com/v1/projects/nuxtjs-authentication/messages:send'
   },
   /*
    ** Build configuration

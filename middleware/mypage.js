@@ -9,12 +9,11 @@ export default function ({route, redirect, store}) {
     }
   }
 
-  var messaging = firebase.messaging();
-
-  messaging.getToken().then((currentToken) => {
-    if (currentToken) {
-      console.log(currentToken);
-    }
+  const messaging = firebase.messaging();
+  messaging.usePublicVapidKey("BK05JP91BVFnCHgDYRM-q0I7dqgCwyTlFs2k4Z152HHU2Ben9NfuZjz9duR2y7TSBfJh1r7Im2FOdT-7i8SXy34");
+  messaging.onMessage(function (payload) {
+    console.log('Message received. ', payload);
+    // ...
   });
 
   notifyMe();

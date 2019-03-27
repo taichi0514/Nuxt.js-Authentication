@@ -74,7 +74,7 @@ export const mutations = {
   Notification_get(state) {
     this.$axios({
       method: "GET",
-      url: process.env.GITHUB + "/notifications",
+      url: process.env.NUXT_ENV_GITHUB + "/notifications",
       headers: {
         Authorization: "token " + state.token
       },
@@ -102,7 +102,7 @@ export const mutations = {
       .toISOString();
     this.$axios({
       method: "GET",
-      url: process.env.GITHUB + "/notifications",
+      url: process.env.NUXT_ENV_GITHUB + "/notifications",
       headers: {
         Authorization: "token " + state.token
       },
@@ -112,7 +112,8 @@ export const mutations = {
     }).then(response => {
       if (Object.keys(response.data).length > state.notifications.length) {
         state.notifications = response.data;
-        const messaging = firebase.messaging()
+        const messaging = firebase.messaging();
+        messaging.usePublicVapidKey("BK05JP91BVFnCHgDYRM-q0I7dqgCwyTlFs2k4Z152HHU2Ben9NfuZjz9duR2y7TSBfJh1r7Im2FOdT-7i8SXy34");
         messaging.requestPermission()
           .then(() => {
             console.log('Have permission')
@@ -120,23 +121,24 @@ export const mutations = {
           }).then((currentToken) => {
           if (currentToken) {
             // プッシュ通知を受信し，表示できる状態
-            let argObj = { // 受信者のトークンIDと通知内容
-              to: currentToken,
-              notification: {
-                body: response.data[0].subject.type,
-                title: response.data[0].subject.title,
-                click_action: 'https://fcm.googleapis.com/',
-                // icon: 'アイコン'
-              }
-            }
-            //.post('https://fcm.googleapis.com/fcm/send', argObj, optionObj)
-            let optionObj = { //送信者のサーバーキー
+            this.$axios.post({
+              method: "GET",
+              url: process.env.NUXT_ENV_FIREBASE,
               headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'AAAAifBIKc4:APA91bHbcMZxWF5KeV31inKgl6xlJM-Uzff5uHuO58EWecIo8JClZimFV52mYN29zvgNnP03Q0V4Buv0nQneO6y_mCeKMmXx90W3ibvO7p6b_c1GP_A09mQY4mRi6BObR-pF7VlGnomE'
+                'Authorization': 'Bearer " + "AAAAifBIKc4:APA91bHbcMZxWF5KeV31inKgl6xlJM-Uzff5uHuO58EWecIo8JClZimFV52mYN29zvgNnP03Q0V4Buv0nQneO6y_mCeKMmXx90W3ibvO7p6b_c1GP_A09mQY4mRi6BObR-pF7VlGnomE'
+              },
+              params: {
+                to: currentToken,
+                notification: {
+                  body: response.data[0].subject.type,
+                  title: response.data[0].subject.title,
+                  click_action: 'https://fcm.googleapis.com/',
+                  // icon: 'アイコン'
+                }
               }
-            }
-            this.$axios.post(process.env.FIREBASE, argObj, optionObj).catch((err) => {
+            })
+            this.$axios.post(process.env.NUXT_ENV_FIREBASE).catch((err) => {
               console.log('Error Occurred.')
             })
             // spawnNotification(
