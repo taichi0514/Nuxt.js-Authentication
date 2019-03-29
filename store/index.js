@@ -113,41 +113,26 @@ export const mutations = {
       if (Object.keys(response.data).length > state.notifications.length) {
         state.notifications = response.data;
         const messaging = firebase.messaging();
-        messaging.usePublicVapidKey("BK05JP91BVFnCHgDYRM-q0I7dqgCwyTlFs2k4Z152HHU2Ben9NfuZjz9duR2y7TSBfJh1r7Im2FOdT-7i8SXy34");
-        messaging.requestPermission()
-          .then(() => {
-            console.log('Have permission')
-            return messaging.getToken() //ユーザにプッシュ通知を表示する権限の許可を表示
-          }).then((currentToken) => {
-          if (currentToken) {
-            // プッシュ通知を受信し，表示できる状態
-            this.$axios.post({
-              method: "GET",
-              url: process.env.NUXT_ENV_FIREBASE,
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer " + "AAAAifBIKc4:APA91bHbcMZxWF5KeV31inKgl6xlJM-Uzff5uHuO58EWecIo8JClZimFV52mYN29zvgNnP03Q0V4Buv0nQneO6y_mCeKMmXx90W3ibvO7p6b_c1GP_A09mQY4mRi6BObR-pF7VlGnomE'
-              },
-              params: {
-                to: currentToken,
-                notification: {
-                  body: response.data[0].subject.type,
-                  title: response.data[0].subject.title,
-                  click_action: 'https://fcm.googleapis.com/',
-                  // icon: 'アイコン'
-                }
+        messaging.usePublicVapidKey(process.env.NUXT_ENV_USE_PUBLIC_VAPID_KEY);
+        messaging.requestPermission().then(() => {
+          this.$axios.post({
+            method: "POST",
+            url: process.env.NUXT_ENV_FIREBASE,
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': process.env.NUXT_ENV_ACCESS_TOKEN
+            },
+            params: {
+              token: process.env.NUXT_ENV_TOKEN,
+              notification: {
+                body: response.data[0].subject.type,
+                title: response.data[0].subject.title,
+                click_action: response.data[0].subject.url,
+                // icon: 'アイコン'
               }
-            })
-            this.$axios.post(process.env.NUXT_ENV_FIREBASE).catch((err) => {
-              console.log('Error Occurred.')
-            })
-            // spawnNotification(
-            //   response.data[0].subject.title,
-            //   response.data[0].subject.type
-            // );
-          }
+            }
+          })
         });
-
       }
     });
   }

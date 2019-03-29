@@ -10,10 +10,22 @@ export default function ({route, redirect, store}) {
   }
 
   const messaging = firebase.messaging();
-  messaging.usePublicVapidKey("BK05JP91BVFnCHgDYRM-q0I7dqgCwyTlFs2k4Z152HHU2Ben9NfuZjz9duR2y7TSBfJh1r7Im2FOdT-7i8SXy34");
-  messaging.onMessage(function (payload) {
-    console.log('Message received. ', payload);
-    // ...
+  // messaging.usePublicVapidKey(process.env.NUXT_ENV_USE_PUBLIC_VAPID_KEY);
+  messaging.requestPermission().then(() => {
+    messaging.onMessage(function (payload) {
+      console.log('Message received. ', payload);
+      const spawnNotification = (theTitle, theBody, theIcon) => {
+        const options = {
+          title: theTitle,
+          body: theBody,
+          icon: theIcon,
+          vibrate: [200, 100, 200]
+        };
+        const n = new Notification(theTitle, options);
+        setTimeout(n.close.bind(n), 5000);
+      };
+      spawnNotification("fdsdf", "ttl");
+    });
   });
 
   notifyMe();

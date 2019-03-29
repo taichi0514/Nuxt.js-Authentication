@@ -8,7 +8,9 @@ var config = {
   storageBucket: "nuxtjs-authentication.appspot.com",
   messagingSenderId: "592441780686"
 };
-firebase.initializeApp(config);
+if (!firebase.apps[0]) {
+  firebase.initializeApp(config);
+}
 
 export default firebase
 
