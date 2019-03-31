@@ -59,11 +59,11 @@ module.exports = {
     https: true
   },
   env: {
-    NUXT_ENV_GITHUB: 'https://api.github.com',
-    NUXT_ENV_FIREBASE: 'https://fcm.googleapis.com/v1/projects/nuxtjs-authentication/messages:send',
-    NUXT_ENV_ACCESS_TOKEN: 'Bearer ya29.c.ElrZBnnRX-4cQZOuD2bswTj7yGCqSsoJP2Urid1j9IBKPGIr8zkU6cLDppoXWbuiQ_jmpvjlvQv_nY5e4gHldGho27EOjzCnqu0Cfc6wzh4N1Lb8t0jo_GJQyg8',
-    NUXT_ENV_USE_PUBLIC_VAPID_KEY: 'BK05JP91BVFnCHgDYRM-q0I7dqgCwyTlFs2k4Z152HHU2Ben9NfuZjz9duR2y7TSBfJh1r7Im2FOdT-7i8SXy34',
-    NUXT_ENV_TOKEN: 'd5HoTE3AGc0:APA91bGg5t7SYDBufYaTxdmSyFL2oc11LHWyRiV_YADjDwrRGVYK7xn0gf3FkOeGdYeVLVgTOwFBplo8j1uFR00TFXmx3bqX4-IJtEdF2SfT6GYE3-bfTg6PtwRcjH0CPT0pUdd1V1p'
+    NUXT_ENV_GITHUB: process.env.NUXT_ENV_GITHUB,
+    NUXT_ENV_FIREBASE: process.env.NUXT_ENV_FIREBASE,
+    NUXT_ENV_ACCESS_TOKEN: process.env.NUXT_ENV_ACCESS_TOKEN_WRAPP + " " + process.env.NUXT_ENV_ACCESS_TOKEN,
+    NUXT_ENV_USE_PUBLIC_VAPID_KEY: process.env.NUXT_ENV_USE_PUBLIC_VAPID_KEY,
+    NUXT_ENV_TOKEN: process.env.NUXT_ENV_TOKEN
   },
   /*
    ** Build configuration
