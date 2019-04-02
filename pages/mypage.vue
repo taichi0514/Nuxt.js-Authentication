@@ -7,7 +7,7 @@
     <el-button @click="check">既読</el-button>
     <ul class="wrap_list">
       <li class="list" v-for="(item,index) in this.$store.state.notifications" :key="index">
-        <a :href="item.subject.url.replace('api.','').replace('/repos','')">
+        <a :href="item.subject.url.replace('api.','').replace('/repos','').replace('/pulls/','/pull/')">
           <i>{{item.subject.type}}</i>
           {{item.subject.title}}
         </a>
