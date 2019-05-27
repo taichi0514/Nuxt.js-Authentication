@@ -71,7 +71,7 @@ export default {
 
   .wrap_list {
     padding: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 100%;
   }
 
